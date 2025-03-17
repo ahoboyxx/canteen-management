@@ -8,8 +8,13 @@ import SummaryComponent from "./SummaryComponent";
 import BestSellersComponent from "./BestSellersComponent";
 import AddProductForm from "./AddProductForm";
 import UpdateQuantityForm from "./UpdateQuantityForm";
+import { useNavigate } from 'react-router-dom';
+import useAdmin from '../../hooks/useAdmin';
 
 const AdminPanel = () => {
+  const navigate = useNavigate();
+  const isAdmin = useAdmin();
+
   const [salesData, setSalesData] = useState({
     weekly: [],
     monthly: [],
@@ -110,6 +115,12 @@ const AdminPanel = () => {
     [dateRanges, initialPrices, products, convertToChartFormat]
   );
 
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate('/');
+    }
+  }, [isAdmin, navigate]);
+
   // Effect for products data
   useEffect(() => {
     const productsRef = ref(database, "products");
@@ -149,9 +160,8 @@ const AdminPanel = () => {
     }
   }, [rawSalesData, products, processData]);
 
-  return (
-    <Container fluid>
-      <h1 className="my-4 fw-bold">Admin Panel</h1>
+  const renderAdminContent = () => (
+    <>
       <Row>
         <Col xs={12} md={6} lg={4}>
           <ChartComponent
@@ -182,7 +192,7 @@ const AdminPanel = () => {
       </Row>
       <Row>
         <Col xs={12}>
-          <OrderHistory />
+          <OrderHistory isAdmin={true} />
         </Col>
       </Row>  
       <Row>
@@ -193,6 +203,23 @@ const AdminPanel = () => {
           <UpdateQuantityForm products={products} setProducts={setProducts} />
         </Col>
       </Row>
+    </>
+  );
+
+  const renderUserContent = () => (
+    <>
+      <Row>
+        <Col xs={12}>
+          <OrderHistory isAdmin={false} />
+        </Col>
+      </Row>
+    </>
+  );
+
+  return (
+    <Container fluid>
+      <h1 className="my-4 fw-bold">{isAdmin ? "Admin Panel" : "User Dashboard"}</h1>
+      {isAdmin ? renderAdminContent() : renderUserContent()}
     </Container>
   );
 };

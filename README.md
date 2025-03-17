@@ -1,6 +1,6 @@
 # Canteen Management System
 
-<img src="./Images/project-1.png" width="100%">
+<img src="./Images/project-2.png" width="100%">
 
 ## Overview
 
@@ -80,29 +80,50 @@ Follow these steps to set up the project locally:
 
 6. Open the application in your browser at [http://localhost:3000](http://localhost:3000).
 
-## Usage
+## Changelog
 
-1. **Browse Products**: View a list of available products on the homepage.
-2. **Search for Items**: Use the search bar to quickly locate items.
-3. **View Product Details**: Click on a product to see more details, such as a description, available quantity, and price.
-4. **Manage Cart**: Add products to your cart, adjust quantities, and remove items if needed.
-5. **Checkout**: Proceed to checkout to place your order.
-6. **User Authentication**: Log in to access personalized features such as order history.
-7. **View Order History**:
-   - **User View**: Access your own order history.
-   - **Admin View**: Access the full order history for all users, with options to visualize data and export as PDF.
-8. **Advanced Reporting**: The admin panel includes visual reports on weekly, monthly, and yearly performance, offering insights into sales trends.
+### Version 1.5.0 (2025-03-17)
+- Enhanced backend rules.
+- Added images to sign-in/up pages.
+- Restricted admin page access to admins only.
+- Added Babel plugin for private properties.
 
-## Recent Updates
+### Version 1.3.0 (2025-01-25)
+- Added user profile picture functionality.
+- Implemented email validation.
+- Improved error messages for product display issues.
 
-- **Order History**: 
-  - **User Order History**: Users can view their own order history.
-  - **Admin Order History**: Admins can access the complete order history for all users, streamlining record-keeping and inventory management.
+### Version 1.2.0 (2024-12-27)
+- Redesigned bill layout.
+- Updated Firebase database structure.
+- Enhanced data synchronization.
 
-- **Recharts Integration**: Data visualization with `Recharts` enables users and admins to understand ordering trends and make data-driven decisions.
+### Version 1.1.1 (2024-01-16)
+- Added Changelog section.
+- Updated README structure.
+- Improved installation instructions.
+- Enhanced Firebase setup documentation.
 
-- **PDF Generation**: Integrated `jspdf` allows users and admins to export order history as PDF files, useful for offline record-keeping and administrative purposes.
+### Version 1.1.0 (2024-01-15)
+- Added data visualization with Recharts.
+- Implemented PDF export for order history.
+- Enhanced admin panel with advanced reporting.
+- Added user order history tracking.
+- Improved responsive design.
+
+### Version 1.0.0 (2023-12-01)
+- Initial release.
+- Basic product catalog and cart functionality.
+- Firebase integration for real-time updates.
+- User authentication system.
+- Basic admin panel features.
+
+### Version 0.1.0 (2023-07)
+- Initial project setup.
+- Basic cart modal implementation.
+- Product image integration.
+- Core functionality foundation.
 
 ## Contributing
 
-We welcome contributions! If you’d like to help improve this project, feel free to fork the repository and submit a Pull Request.
+We welcome contributions! If you'd like to help improve this project, feel free to fork the repository and submit a Pull Request.

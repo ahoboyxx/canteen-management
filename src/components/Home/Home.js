@@ -19,6 +19,7 @@ import {
 } from "react-bootstrap";
 import { useAuth } from "../../AuthContext";
 import jsPDF from "jspdf";
+import useAdmin from '../../hooks/useAdmin';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const Home = () => {
   const [showAdmin, setShowAdmin] = useState(false);
   const [logoutError, setLogoutError] = useState("");
   const [showOrderHistory, setShowOrderHistory] = useState(false);
+  const isAdmin = useAdmin();
 
   useEffect(() => {
     if (products && products.length > 0) {
@@ -51,6 +53,13 @@ const Home = () => {
       navigate("/login");
     }
   }, [currentUser, navigate]);
+
+  useEffect(() => {
+    // Check if user is logged in and update admin status
+    if (!currentUser) {
+      setShowAdmin(false);
+    }
+  }, [currentUser]);
 
   const generatePDF = () => {
     const doc = new jsPDF();
@@ -225,7 +234,10 @@ const Home = () => {
   };
 
   const handleAdminClick = () => {
-    setShowAdmin((prev) => !prev);
+    if (isAdmin) {
+      setShowAdmin(true);
+      setShowOrderHistory(false);
+    }
   };
 
   const handleHomeClick = () => {
@@ -265,7 +277,7 @@ const Home = () => {
           >
             My Orders
           </button>
-          {currentUser && (
+          {isAdmin && (
             <button
               onClick={handleAdminClick}
               className="btn btn-Link text-decoration-none text-dark fw-bold"
