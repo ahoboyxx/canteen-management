@@ -4,126 +4,89 @@
 
 ## Overview
 
-The Canteen Management System is a web-based application designed to streamline food ordering processes in canteens or cafeteria settings. Built with **React** and **Firebase**, this application offers an intuitive interface for users to browse products, add items to a cart, and complete purchases. Additionally, it provides order history features for users and administrators, with data visualization and PDF export options for easy record-keeping.
+The **Canteen Management System** is a web app that makes food ordering in canteens or cafeterias easy and efficient. Built with **React** and **Firebase**, it allows users to browse food items, add them to a cart, and place orders. Admins can track orders, view reports, and manage the system.
 
 **[Live Demo](https://sauravrwt.github.io/Canteen-Management/)**
 
 ## Features
 
-- **Product Catalog**: A browsable list of available food items with details like name, price, and quantity.
-- **Search Functionality**: A search bar to quickly find specific products.
-- **Product Details**: View in-depth details for each product by selecting an item.
-- **Shopping Cart**: Add items to the cart, adjust quantities, and remove items as needed.
-- **Checkout Process**: Simple, streamlined checkout process for completing purchases.
-- **Real-time Updates**: Product quantities are automatically updated in real-time using Firebase.
+- **Browse Food Items**: See a list of available food items with details like price and quantity.
+- **Search Bar**: Quickly find specific items.
+- **Shopping Cart**: Add, remove, or adjust items in your cart.
 - **Order History**: 
-  - **User Order History**: Allows users to track their own past orders.
-  - **Admin Order History**: Enables administrators to view the full order history of all users.
-- **Data Visualization**: Using `Recharts`, users and admins can visualize order data for insights into ordering trends.
-- **PDF Export**: Integrated `jspdf` to allow users and admins to export order history as PDF files for easy offline reference.
-- **Advanced Reporting**: Built-in reporting with visual analytics to track weekly, monthly, and yearly sales performance in the admin panel.
-- **Responsive Design**: Fully responsive layout for seamless use on desktop and mobile devices.
-- **Secure Authentication**: Integrated **Firebase Authentication** for secure login and user management.
+  - Users can view their past orders.
+  - Admins can see all users' orders.
+- **Reports & Charts**: Visualize sales trends with charts.
+- **PDF Export**: Save order history as a PDF.
+- **Secure Login**: Uses Firebase for secure user authentication.
+- **Mobile-Friendly**: Works on both desktop and mobile devices.
 
 ## Technologies Used
 
-- **React.js** for front-end development
-- **Firebase (Realtime Database & Authentication)** for real-time data handling, storage, and secure user management
-- **Bootstrap 5** and **React Bootstrap** for UI components
-- **Recharts** for data visualization
-- **JSPDF** for exporting data as PDF files
+- **React.js**: For building the user interface.
+- **Firebase**: For real-time database and user authentication.
+- **Bootstrap**: For styling and layout.
+- **Recharts**: For creating charts and graphs.
+- **JSPDF**: For exporting data as PDFs.
 
-## Installation and Setup
+## How to Set Up the Project
 
-Follow these steps to set up the project locally:
+Follow these steps to run the project on your computer:
 
-1. **Clone the Repository**:
+1. **Clone the Project**:
    ```bash
-   git clone https://github.com/SauRavRwT/canteen-management-system.git
+   git clone https://github.com/SauRavRwT/Canteen-Management.git
    ```
 
-2. **Navigate to the Project Directory**:
+2. **Go to the Project Folder**:
    ```bash
-   cd canteen-management-system
+   cd Canteen-Management
    ```
 
-3. **Install Dependencies**:
+3. **Install Required Packages**:
    ```bash
    npm install
    ```
 
 4. **Set Up Firebase**:
-   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-   - Add a web app to your Firebase project
-   - Enable Firebase Authentication for secure user management
-   - Copy the Firebase configuration and create a `firebase.js` file in the project root with your configuration:
+   - Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project.
+      - Register a web app within your Firebase project.
+      - Enable Firebase Authentication and set up the desired sign-in methods.
+      - Copy the Firebase configuration and create a `firebase.js` file in the project directory:
 
-     ```javascript
-     // firebase.js
-     export const firebaseConfig = {
-       apiKey: "your_api_key",
-       authDomain: "your_auth_domain",
-       databaseURL: "your_databaseurl",
-       projectId: "your_project_id",
-       storageBucket: "your_storage_bucket",
-       messagingSenderId: "your_messaging_sender_id",
-       appId: "your_app_id"
-     };
-     ```
+        ```javascript
+        // firebase.js
+        export const firebaseConfig = {
+          apiKey: "your_api_key",
+          authDomain: "your_auth_domain",
+          databaseURL: "your_database_url",
+          projectId: "your_project_id",
+          storageBucket: "your_storage_bucket",
+          messagingSenderId: "your_messaging_sender_id",
+          appId: "your_app_id"
+        };
+        ```
 
-   <img src="./Images/firebase-1.png"><img src="./Images/firebase-2.png">
+      - Import the provided `./src/Database/Database.json` file into your Firebase Realtime Database and update the `AdminUserId` field with the admin user ID from Firebase Authentication.
+      - Apply `auth != null` to admin, sales, product read/write database rules.
 
-5. **Start the Development Server**:
+5. **Start the App**:
    ```bash
    npm start
    ```
 
-6. Open the application in your browser at [http://localhost:3000](http://localhost:3000).
+6. Open the app in your browser at [http://localhost:3000](http://localhost:3000).
 
 ## Changelog
 
-### Version 1.5.0 (2025-03-17)
-- Enhanced backend rules.
-- Added images to sign-in/up pages.
-- Restricted admin page access to admins only.
-- Added Babel plugin for private properties.
+### Latest Updates (Version 1.5.0 - March 17, 2025)
+- Improved backend rules.
+- Added images to login and signup pages.
+- Restricted admin access to authorized users only.
+- Added support for private properties in the code.
 
-### Version 1.3.0 (2025-01-25)
-- Added user profile picture functionality.
-- Implemented email validation.
-- Improved error messages for product display issues.
-
-### Version 1.2.0 (2024-12-27)
-- Redesigned bill layout.
-- Updated Firebase database structure.
-- Enhanced data synchronization.
-
-### Version 1.1.1 (2024-01-16)
-- Added Changelog section.
-- Updated README structure.
-- Improved installation instructions.
-- Enhanced Firebase setup documentation.
-
-### Version 1.1.0 (2024-01-15)
-- Added data visualization with Recharts.
-- Implemented PDF export for order history.
-- Enhanced admin panel with advanced reporting.
-- Added user order history tracking.
-- Improved responsive design.
-
-### Version 1.0.0 (2023-12-01)
-- Initial release.
-- Basic product catalog and cart functionality.
-- Firebase integration for real-time updates.
-- User authentication system.
-- Basic admin panel features.
-
-### Version 0.1.0 (2023-07)
-- Initial project setup.
-- Basic cart modal implementation.
-- Product image integration.
-- Core functionality foundation.
+For a full list of updates, check the **Changelog** section in the repository.
 
 ## Contributing
 
-We welcome contributions! If you'd like to help improve this project, feel free to fork the repository and submit a Pull Request.
+We’d love your help! Feel free to fork the project, make changes, and submit a Pull Request.

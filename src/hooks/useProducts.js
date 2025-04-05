@@ -23,7 +23,7 @@ const useProducts = () => {
     const productRef = ref(database, `products/${id}`);
     update(productRef, { quantity: newQuantity })
       .then(() => {
-        console.log("Product quantity updated successfully.");
+        // console.log("Product quantity updated successfully.");
       })
       .catch((error) => {
         console.error("Error updating product quantity:", error);

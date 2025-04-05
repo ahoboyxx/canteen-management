@@ -18,7 +18,7 @@ const ProductDetailModal = ({ show, handleClose, product, addToCart }) => {
             src={product.image}
             alt={product.name}
             className="img-fluid rounded"
-            style={{ maxHeight: "200px" }}
+            style={{ maxHeight: "250px", border: "1px solid #ddd" }}
           />
         </div>
         <div className="d-flex flex-row align-items-center justify-content-between gap-2">
