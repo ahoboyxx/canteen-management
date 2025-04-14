@@ -88,13 +88,18 @@ const OrderHistory = () => {
     });
   };
 
-  // Filter orders based on search term
   const filterOrders = (ordersToFilter) => {
-    return ordersToFilter.filter((order) =>
-      order.items.some((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+    return ordersToFilter.filter((order) => {
+      const searchLower = searchTerm.toLowerCase();
+      return (
+        order.id.toLowerCase().includes(searchLower) ||
+        order.items.some((item) =>
+          item.name.toLowerCase().includes(searchLower)
+        ) ||
+        order.userEmail.toLowerCase().includes(searchLower) ||
+        formatDate(order.date).toLowerCase().includes(searchLower)
+      );
+    });
   };
 
   // Handle column header click for sorting
@@ -125,8 +130,10 @@ const OrderHistory = () => {
       <Card.Header>
         <Card.Title>Order History</Card.Title>
         <Form.Control
+          id="search"
+          name="search"
           type="text"
-          placeholder="Search by product name..."
+          placeholder="Search your order..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="mt-2"
