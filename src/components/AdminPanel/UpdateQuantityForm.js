@@ -42,7 +42,7 @@ const UpdateQuantityForm = ({ products, setProducts }) => {
       <Card.Header>Update Product Quantity</Card.Header>
       <Card.Body>
         <Form onSubmit={handleUpdateQuantity}>
-          <Form.Group controlId="selectProduct">
+          <Form.Group controlId="updateQuantityForm-productSelect">
             <Form.Label>Select Product</Form.Label>
             <Form.Control
               as="select"
@@ -58,7 +58,7 @@ const UpdateQuantityForm = ({ products, setProducts }) => {
               ))}
             </Form.Control>
           </Form.Group>
-          <Form.Group controlId="quantityChange" className="mt-3">
+          <Form.Group controlId="updateQuantityForm-quantityInput" className="mt-3">
             <Form.Label>Quantity Change (Increase/Decrease)</Form.Label>
             <Form.Control
               type="number"

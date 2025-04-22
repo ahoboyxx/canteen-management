@@ -1,6 +1,6 @@
 # Canteen Management System
 
-<img src="./Images/project-2.png" width="100%">
+<img src="./Images/project-3.png" width="100%">
 
 ## Overview
 

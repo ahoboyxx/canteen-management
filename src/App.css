@@ -4,6 +4,10 @@
   animation: fadeIn 1s ease-in-out;
 }
 
+.cover-container {
+  max-width: 42em;
+}
+
 h2 {
   margin-top: 0;
   transition: color 0.3s ease;

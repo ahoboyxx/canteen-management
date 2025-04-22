@@ -11,15 +11,10 @@ import useProducts from "../../hooks/useProducts";
 import { ref, update } from "firebase/database";
 import { auth, database } from "../../firebase";
 import { signOut } from "firebase/auth";
-import {
-  Toast,
-  Form,
-  InputGroup,
-  Container,
-} from "react-bootstrap";
+import { Toast, Form, InputGroup, Container } from "react-bootstrap";
 import { useAuth } from "../../AuthContext";
 import jsPDF from "jspdf";
-import useAdmin from '../../hooks/useAdmin';
+import useAdmin from "../../hooks/useAdmin";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -69,13 +64,15 @@ const Home = () => {
 
     // Header
     doc.setFontSize(22);
+    doc.setFont("helvetica", "bold");
     doc.text("CANTEEN RECEIPT", pageWidth / 2, 15, { align: "center" });
 
     doc.setFontSize(12);
-    doc.text("Date: " + date, 10, 30);
-    doc.text("Time: " + time, 10, 37);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Date: ${date}`, 10, 30);
+    doc.text(`Time: ${time}`, 10, 37);
     doc.text(
-      "Customer: " + (currentUser?.displayName || currentUser?.email),
+      `Customer: ${currentUser?.displayName || currentUser?.email}`,
       10,
       44
     );
@@ -87,29 +84,41 @@ const Home = () => {
     // Column headers
     doc.setFont("helvetica", "bold");
     doc.text("Item", 10, 60);
-    doc.text("Qty", 130, 60);
-    doc.text("Price", 150, 60);
-    doc.text("Amount", 170, 60);
+    doc.text("Qty", 120, 60, { align: "right" });
+    doc.text("Price", 140, 60, { align: "right" });
+    doc.text("Amount", 190, 60, { align: "right" });
 
     // Items
     doc.setFont("helvetica", "normal");
-    cart.forEach((product, index) => {
-      const y = 70 + index * 10;
+    let y = 70;
+    cart.forEach((product) => {
       doc.text(product.name, 10, y);
-      doc.text(product.quantity.toString(), 130, y);
-      doc.text(product.price.toFixed(2), 150, y);
-      doc.text((product.quantity * product.price).toFixed(2), 170, y);
+      doc.text(product.quantity.toString(), 120, y, { align: "right" });
+      doc.text(product.price.toFixed(2), 140, y, { align: "right" });
+      doc.text((product.quantity * product.price).toFixed(2), 190, y, {
+        align: "right",
+      });
+      y += 10;
     });
 
     // Footer
-    const totalY = 80 + cart.length * 10;
-    doc.line(10, totalY, pageWidth - 10, totalY);
+    const totalY = y + 10;
+    doc.line(10, totalY - 5, pageWidth - 10, totalY - 5);
     doc.setFont("helvetica", "bold");
-    doc.text("Total Amount:", 130, totalY + 10);
-    doc.text(`$${calculateTotal().toFixed(2)}`, 170, totalY + 10);
+    doc.text("Total Amount:", 140, totalY, { align: "right" });
+    doc.text(`$${calculateTotal().toFixed(2)}`, 190, totalY, {
+      align: "right",
+    });
+
+    // Thank you note
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "italic");
+    doc.text("Thank you for dining with us!", pageWidth / 2, totalY + 20, {
+      align: "center",
+    });
 
     doc.save(
-      `Canteen-Bill-${date.replace(/\//g, "-")}-${time.replace(/\//g, "-")}.pdf`
+      `Canteen-Bill-${date.replace(/\//g, "-")}-${time.replace(/:/g, "-")}.pdf`
     );
   };
 
@@ -246,61 +255,65 @@ const Home = () => {
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <Container className="d-flex flex-column align-items-center my-3 py-3">
-        <h1 className="fw-bold">
-          <Link
-            to="/"
-            className="text-decoration-none text-dark"
-            onClick={() => {
-              setShowAdmin(false);
-              setShowOrderHistory(false);
-            }}
-          >
-            Canteen Management
-          </Link>
-        </h1>
-
-        <div className="d-flex justify-content-center">
-          <button
-            onClick={handleHomeClick}
-            className="btn btn-Link text-decoration-none text-dark fw-bold"
-          >
-            Home
-          </button>
-          <button
-            onClick={() => {
-              setShowOrderHistory(true);
-              setShowAdmin(false);
-            }}
-            className="btn btn-Link text-decoration-none text-dark fw-bold"
-          >
-            My Orders
-          </button>
-          {isAdmin && (
-            <button
-              onClick={handleAdminClick}
-              className="btn btn-Link text-decoration-none text-dark fw-bold"
+    <>
+      <header className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <h3 className="fw-bold mb-3 mb-md-0 display-4">
+            <Link
+              to="/"
+              className="text-decoration-none text-dark"
+              onClick={() => {
+                setShowAdmin(false);
+                setShowOrderHistory(false);
+              }}
             >
-              Admin
+              Canteen
+            </Link>
+          </h3>
+          <nav className="nav nav-masthead d-flex align-items-center gap-2">
+            <button
+              onClick={handleHomeClick}
+              className="btn btn-link text-decoration-none text-dark fw-bold p-2"
+            >
+              Home
             </button>
-          )}
-          {currentUser && (
-            <div className="d-flex align-items-center fw-bold">
-            <img
-              src={`https://ui-avatars.com/api/?name=${currentUser.email}&background=random`}
-              alt="profile"
-              className="rounded-circle me-2"
-              width="30"
-              height="30"
-            />
-            {`Hello, ${currentUser.displayName || currentUser.email.split('@')[0]}`}
-
-            <button className="rounded-5 btn button btn-sm m-2 btn-danger fw-bold" onClick={handleLogout}>Logout</button>
-          </div>
-          )}
+            <button
+              onClick={() => {
+                setShowOrderHistory(true);
+                setShowAdmin(false);
+              }}
+              className="btn btn-link text-decoration-none text-dark fw-bold p-2"
+            >
+              My Orders
+            </button>
+            {isAdmin && (
+              <button
+                onClick={handleAdminClick}
+                className="btn btn-link text-decoration-none text-dark fw-bold p-2"
+              >
+                Admin
+              </button>
+            )}
+            {currentUser && (
+              <div className="d-flex align-items-center fw-bold gap-2">
+                <img
+                  src={`https://ui-avatars.com/api/?name=${currentUser.email}&background=random`}
+                  alt="profile"
+                  className="rounded-circle"
+                  width="30"
+                  height="30"
+                />
+                <button
+                  className="rounded-5 btn button btn-sm btn-danger fw-bold"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </nav>
         </div>
-      </Container>
+      </header>
 
       <Container className="mt-5 flex-grow-1">
         {logoutError && (
@@ -339,7 +352,7 @@ const Home = () => {
             </div>
             {cart.length > 0 && (
               <button
-                className="btn btn-primary rounded-3"
+                className="btn btn-primary rounded-4 fw-bold"
                 onClick={() => setShowCartModal(true)}
               >
                 <i className="fas fa-shopping-cart me-2"></i>
@@ -360,7 +373,16 @@ const Home = () => {
             ) : (
               <div className="text-center mt-5">
                 <h3>Sorry, we're currently not serving any items.</h3>
-                <p className="text-muted">Please check back later or contact <a className="text-decoration-none" href="https://github.com/SauRavRwT/">maintainer</a>!</p>
+                <p className="text-muted">
+                  Please check back later or contact{" "}
+                  <a
+                    className="text-decoration-none"
+                    href="https://github.com/SauRavRwT/"
+                  >
+                    maintainer
+                  </a>
+                  !
+                </p>
               </div>
             )}
             <CartModal
@@ -393,7 +415,7 @@ const Home = () => {
         )}
       </Container>
       <Footer />
-    </div>
+    </>
   );
 };
 

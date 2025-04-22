@@ -44,20 +44,22 @@ const AddProductForm = () => {
       <Card.Header>Add New Product</Card.Header>
       <Card.Body>
         <Form onSubmit={handleAddProduct}>
-          <Form.Group controlId="productName">
+          <Form.Group controlId="addProduct-name">
             <Form.Label>Product Name</Form.Label>
             <Form.Control
               type="text"
+              name="productName"
               placeholder="Enter product name"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
               required
             />
           </Form.Group>
-          <Form.Group controlId="productPrice" className="mt-3">
+          <Form.Group controlId="addProduct-initialPrice" className="mt-3">
             <Form.Label>Initial Product Price (₹)</Form.Label>
             <Form.Control
               type="number"
+              name="initialPrice"
               step="0.1"
               min="0"
               placeholder="Enter initial product price"
@@ -66,10 +68,11 @@ const AddProductForm = () => {
               required
             />
           </Form.Group>
-          <Form.Group controlId="productPrice" className="mt-3">
+          <Form.Group controlId="addProduct-currentPrice" className="mt-3">
             <Form.Label>Product Price (₹)</Form.Label>
             <Form.Control
               type="number"
+              name="currentPrice"
               step="0.1"
               min="0"
               placeholder="Enter product price"
@@ -78,10 +81,11 @@ const AddProductForm = () => {
               required
             />
           </Form.Group>
-          <Form.Group controlId="productDescription" className="mt-3">
+          <Form.Group controlId="addProduct-description" className="mt-3">
             <Form.Label>Product Description</Form.Label>
             <Form.Control
               as="textarea"
+              name="description"
               rows={3}
               placeholder="Enter product description"
               value={productDescription}
@@ -89,10 +93,11 @@ const AddProductForm = () => {
               required
             />
           </Form.Group>
-          <Form.Group controlId="productImage" className="mt-3">
+          <Form.Group controlId="addProduct-image" className="mt-3">
             <Form.Label>Product Image URL</Form.Label>
             <Form.Control
               type="url"
+              name="imageUrl"
               placeholder="Enter product image URL"
               value={productImage}
               onChange={(e) => setProductImage(e.target.value)}
