@@ -10,7 +10,7 @@ import SignUp from './components/Auth/SignUp';
 
 const App = () => {
   return (
-    <Router basename="/Canteen-Management">
+    <Router>
       <AuthProvider>
         <Routes>
           <Route 

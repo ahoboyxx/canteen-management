@@ -377,7 +377,7 @@ const Home = () => {
                   Please check back later or contact{" "}
                   <a
                     className="text-decoration-none"
-                    href="https://github.com/SauRavRwT/"
+                    href="https://github.com/ahoboyxx"
                   >
                     maintainer
                   </a>
